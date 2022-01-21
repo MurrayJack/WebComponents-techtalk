@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>By Me a tractor!</title>
+
+    <script async src="./team_inspire.js"></script>
+    <script async src="./team_product.js"></script>
+    <script async src="./team_checkout.js"></script>
+    <script async src="./team_checkout_basket.js"></script>
+
+    <style>
+      /* some CSS vars shared between the items */
+      :root {
+        --related-image-size: 90px;
+      }
+    </style>
+
+    <script>
+      (async function () {
+        // wait till im all up and running.
+        await customElements.whenDefined("product-item");
+        await customElements.whenDefined("inspire-list");
+        await customElements.whenDefined("checkout-button");
+        await customElements.whenDefined("basket-label");
+
+        const product = document.getElementById("product-item");
+        const basketLabel = product.querySelector("basket-label");
+
+        product
+          .querySelector("checkout-button")
+          .addEventListener("buy", (e) => {
+            basketLabel.addToCart();
+          });
+      })();
+    </script>
+  </head>
+  <body>
+    <main>
+      <h1>Act now and get this tractor for $$$$$$$</h1>
+
+      <product-item id="product-item">
+        <inspire-list slot="inspire"></inspire-list>
+        <checkout-button amount="$29.99" slot="add-to-cart"></checkout-button>
+        <basket-label value="0" slot="basket-label"></basket-label>
+      </product-item>
+    </main>
+  </body>
+</html>
